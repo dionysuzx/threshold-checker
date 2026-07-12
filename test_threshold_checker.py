@@ -229,6 +229,33 @@ class ThresholdCheckerCliTests(unittest.TestCase):
         self.assertEqual(json.loads(record_result.stdout), records[1])
         self.assertEqual(record_result.stderr, "")
 
+    def test_non_json_constants_are_malformed_and_processing_continues(self):
+        valid_record = {
+            "timestamp": "t3",
+            "service": "web",
+            "latency_ms": 100,
+            "status": 200,
+        }
+        contents = (
+            '{"timestamp":NaN,"service":"web","latency_ms":800,"status":200}\n'
+            '{"timestamp":"t2","service":"web","latency_ms":800,"status":Infinity}\n'
+            + json.dumps(valid_record)
+            + "\n"
+        )
+
+        summary_result = self.run_checker(contents, "--threshold-ms", "750")
+        record_result = self.run_checker(
+            contents, "--threshold-ms", "750", "--records"
+        )
+
+        summary = json.loads(summary_result.stdout)
+        self.assertEqual(summary_result.returncode, 0)
+        self.assertEqual(summary["malformed_record_count"], 2)
+        self.assertEqual(summary["services"][0]["sample_count"], 1)
+        self.assertEqual(record_result.returncode, 0)
+        self.assertEqual(record_result.stdout, "")
+        self.assertEqual(record_result.stderr.count("MALFORMED:"), 2)
+
     # Scale behavior: stdin is streaming and p95 storage stays fixed per service.
 
     def test_stdin_uses_default_and_per_service_thresholds(self):

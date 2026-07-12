@@ -110,11 +110,17 @@ def malformed(line_number, reason):
     return MalformedRecord(line_number, reason)
 
 
+def reject_json_constant(value):
+    raise ValueError(f"invalid JSON constant: {value}")
+
+
 def parse_record(line, line_number):
     try:
-        value = json.loads(line)
+        value = json.loads(line, parse_constant=reject_json_constant)
     except json.JSONDecodeError as error:
         return malformed(line_number, f"invalid JSON: {error.msg}")
+    except ValueError as error:
+        return malformed(line_number, str(error))
 
     if not isinstance(value, dict):
         return malformed(line_number, "record must be a JSON object")
