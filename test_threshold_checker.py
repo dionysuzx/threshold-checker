@@ -286,7 +286,7 @@ class ThresholdCheckerCliTests(unittest.TestCase):
         )
 
     def test_summary_keeps_a_bounded_p95_sample(self):
-        from threshold_checker import P95_SAMPLE_SIZE, RunningServiceSummary
+        from latency_analysis import P95_SAMPLE_SIZE, RunningServiceSummary
 
         summary = RunningServiceSummary("web", 750)
         for latency in range(P95_SAMPLE_SIZE * 3):
