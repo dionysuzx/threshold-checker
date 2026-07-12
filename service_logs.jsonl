@@ -1,0 +1,19 @@
+{"timestamp":"2026-07-13T15:00:00Z","service":"api-gateway","latency_ms":82,"status":200}
+{"timestamp":"2026-07-13T15:00:01Z","service":"vault-api","latency_ms":140,"status":200}
+{"timestamp":"2026-07-13T15:00:02Z","service":"pricing-worker","latency_ms":95,"status":200}
+{"timestamp":"2026-07-13T15:00:03Z","service":"risk-engine","latency_ms":615,"status":200}
+{"timestamp":"2026-07-13T15:00:04Z","service":"vault-api","latency_ms":1280,"status":200}
+{"timestamp":"2026-07-13T15:00:05Z","service":"api-gateway","latency_ms":805,"status":503}
+{"timestamp":"2026-07-13T15:00:06Z","service":"pricing-worker","latency_ms":110,"status":"200"}
+{"timestamp":"2026-07-13T15:00:07Z","service":"risk-engine","latency_ms":790,"status":"200"}
+{"timestamp":"2026-07-13T15:00:08Z","service":"vault-api","latency_ms":990,"status":504}
+{"timestamp":"2026-07-13T15:00:09Z","service":"api-gateway","latency_ms":76,"status":200}
+{"timestamp":"2026-07-13T15:00:10Z","service":"pricing-worker","latency_ms":2200,"status":"timeout"}
+{"timestamp":"2026-07-13T15:00:11Z","service":"risk-engine","latency_ms":710,"status":200}
+{"timestamp":"2026-07-13T15:00:12Z","service":"vault-api","latency_ms":760,"status":200}
+{"timestamp":"2026-07-13T15:00:13Z","service":"api-gateway","latency_ms":91,"status":200}
+this line was truncated during rotation
+{"timestamp":"2026-07-13T15:00:15Z","service":"pricing-worker","status":200}
+{"timestamp":"2026-07-13T15:00:16Z","service":"risk-engine","latency_ms":-4,"status":200}
+{"timestamp":"2026-07-13T15:00:17Z","service":"","latency_ms":900,"status":200}
+
