@@ -104,9 +104,20 @@ def reject_json_constant(value):
     raise ValueError(f"invalid JSON constant: {value}")
 
 
+def parse_finite_json_float(value):
+    number = float(value)
+    if not math.isfinite(number):
+        raise ValueError(f"JSON number is outside the finite range: {value}")
+    return number
+
+
 def parse_record(line, line_number):
     try:
-        value = json.loads(line, parse_constant=reject_json_constant)
+        value = json.loads(
+            line,
+            parse_constant=reject_json_constant,
+            parse_float=parse_finite_json_float,
+        )
     except json.JSONDecodeError as error:
         return malformed(line_number, f"invalid JSON: {error.msg}")
     except ValueError as error:

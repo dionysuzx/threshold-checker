@@ -239,6 +239,7 @@ class ThresholdCheckerCliTests(unittest.TestCase):
         contents = (
             '{"timestamp":NaN,"service":"web","latency_ms":800,"status":200}\n'
             '{"timestamp":"t2","service":"web","latency_ms":800,"status":Infinity}\n'
+            '{"timestamp":"t3","service":"web","latency_ms":800,"status":{"value":1e9999}}\n'
             + json.dumps(valid_record)
             + "\n"
         )
@@ -250,11 +251,11 @@ class ThresholdCheckerCliTests(unittest.TestCase):
 
         summary = json.loads(summary_result.stdout)
         self.assertEqual(summary_result.returncode, 0)
-        self.assertEqual(summary["malformed_record_count"], 2)
+        self.assertEqual(summary["malformed_record_count"], 3)
         self.assertEqual(summary["services"][0]["sample_count"], 1)
         self.assertEqual(record_result.returncode, 0)
         self.assertEqual(record_result.stdout, "")
-        self.assertEqual(record_result.stderr.count("MALFORMED:"), 2)
+        self.assertEqual(record_result.stderr.count("MALFORMED:"), 3)
 
     # Scale behavior: stdin is streaming and p95 storage stays fixed per service.
 
