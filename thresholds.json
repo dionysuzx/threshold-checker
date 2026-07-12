@@ -1,0 +1,7 @@
+{
+  "default_threshold_ms": 750,
+  "services": {
+    "risk-engine": 700,
+    "vault-api": 800
+  }
+}
